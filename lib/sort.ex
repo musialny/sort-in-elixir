@@ -1,8 +1,7 @@
 defmodule Sort do
   @spec bsort(list()) :: list()
-  def bsort(values), do: bsorter(values, values)
-
-  defp bsorter(values, pierv_values) do
+  def bsort(values) do
+    pierv_values = values
     values = nested_for(values, length(values) - 2, fn values, n ->
       first = Enum.at(values, n, 0)
       second = Enum.at(values, n + 1, 0)
@@ -13,7 +12,7 @@ defmodule Sort do
         values
       end
     end)
-    if values != pierv_values, do: bsorter(values, values), else: values
+    if values != pierv_values, do: bsort(values), else: values
   end
 
   defp nested_for(values, iterator, callback, iterable \\ 0) do
